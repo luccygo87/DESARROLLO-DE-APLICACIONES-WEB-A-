@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+    <ul id="product-list"></ul>
+    <button id="add-product-btn">Agregar Nuevo Producto</button>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+// Arreglo de productos inicial
+const products = [
+    { name: 'Manzana', price: 0.5, description: 'Manzana roja y jugosa', category: 'Frutas' },
+    { name: 'Lechuga', price: 1.2, description: 'Lechuga fresca', category: 'Verduras' },
+    { name: 'Detergente', price: 2.5, description: 'Detergente líquido', category: 'Limpieza' },
+    { name: 'Martillo', price: 5.0, description: 'Martillo de carpintero', category: 'Carpintería' },
+    { name: 'Pelota', price: 3.0, description: 'Pelota de goma', category: 'Juguetes' },
+    { name: 'Destornillador', price: 2.0, description: 'Destornillador de punta plana', category: 'Ferretería' },
+    { name: 'Zapatillas', price: 25.0, description: 'Zapatillas deportivas', category: 'Zapatos' },
+    { name: 'Camisa', price: 15.0, description: 'Camisa de algodón', category: 'Ropa' },
+    { name: 'Perfume', price: 30.0, description: 'Perfume floral', category: 'Perfumes' },
+    { name: 'Smartphone', price: 500.0, description: 'Smartphone de última generación', category: 'Celulares' }
+];
+
+// Función para renderizar la lista de productos
+function renderProducts() {
+    const productList = document.getElementById('product-list');
+    productList.innerHTML = ''; // Limpiar la lista antes de renderizar
+
+    products.forEach(product => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+            <strong>${product.name}</strong><br>
+            Categoría: ${product.category}<br>
+            Precio: $${product.price}<br>
+            Descripción: ${product.description}
+        `;
+        productList.appendChild(listItem);
+    });
+}
+
+// Función para agregar un nuevo producto
+function addProduct() {
+    const newProduct = {
+        name: prompt('Ingresa el nombre del producto:'),
+        price: parseFloat(prompt('Ingresa el precio del producto:')),
+        description: prompt('Ingresa la descripción del producto:'),
+        category: prompt('Ingresa la categoría del producto:')
+    };
+
+    if (newProduct.name && newProduct.price && newProduct.description && newProduct.category) {
+        products.push(newProduct);
+        renderProducts();
+    } else {
+        alert('Todos los campos son obligatorios.');
+    }
+}
+
+// Renderizar los productos al cargar la página
+document.addEventListener('DOMContentLoaded', renderProducts);
+
+// Agregar evento al botón para agregar un nuevo producto
+document.getElementById('add-product-btn').addEventListener('click', addProduct);
